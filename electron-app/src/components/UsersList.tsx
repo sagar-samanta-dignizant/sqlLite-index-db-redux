@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '../store/store';
+import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { fetchUsers, loadUsersFromCache, User } from '../store/usersSlice';
 
 export default function UsersList() {
-  const dispatch = useDispatch<AppDispatch>();
-  const { items: users, loading, error, lastFetched } = useSelector(
-    (state: RootState) => state.users
+  const dispatch = useAppDispatch();
+  const { items: users, loading, error, lastFetched } = useAppSelector(
+    (state) => state.users
   );
 
   useEffect(() => {

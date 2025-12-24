@@ -14,7 +14,7 @@ export interface User {
   joinedAt?: string;
 }
 
-interface UsersState {
+export interface UsersState {
   items: User[];
   loading: boolean;
   error: string | null;

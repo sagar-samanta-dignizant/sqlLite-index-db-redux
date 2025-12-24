@@ -13,5 +13,11 @@ export const store = configureStore({
     }),
 });
 
-export type RootState = ReturnType<typeof store.getState>;
+import { UsersState } from './usersSlice';
+import { SpacesState } from './spacesSlice';
+
+export interface RootState {
+  users: UsersState;
+  spaces: SpacesState;
+}
 export type AppDispatch = typeof store.dispatch;

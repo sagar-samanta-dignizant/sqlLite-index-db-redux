@@ -16,7 +16,7 @@ export interface Space {
   updatedAt?: string;
 }
 
-interface SpacesState {
+export interface SpacesState {
   items: Space[];
   loading: boolean;
   error: string | null;

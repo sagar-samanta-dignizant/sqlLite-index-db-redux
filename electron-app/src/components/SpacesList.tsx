@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '../store/store';
+import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { fetchSpaces, loadSpacesFromCache, Space } from '../store/spacesSlice';
 
 export default function SpacesList() {
-  const dispatch = useDispatch<AppDispatch>();
-  const { items: spaces, loading, error, lastFetched } = useSelector(
-    (state: RootState) => state.spaces
+  const dispatch = useAppDispatch();
+  const { items: spaces, loading, error, lastFetched } = useAppSelector(
+    (state) => state.spaces
   );
 
   useEffect(() => {
