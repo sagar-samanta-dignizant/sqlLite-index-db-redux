@@ -1,25 +1,21 @@
 import { db } from '../index';
-import { spaces, type InsertSpace } from '../schemas/spaces';
+import { spaces, type InsertSpaceSchema } from '../schemas/spaces';
 
 export const spaceRepository = {
   async getAll() {
     return db.select().from(spaces).all();
   },
 
-  async insert(spaceData: InsertSpace[]) {
+  async insert(spaceData: InsertSpaceSchema[]) {
     await db.delete(spaces);
     
-    for (const space of spaceData) {
-      await db.insert(spaces).values({
+    // Optimized: Delete all and re-enter is cleaner for local cache sync
+    if (spaceData.length > 0) {
+      const formattedValues = spaceData.map(space => ({
         ...space,
         syncedAt: new Date().toISOString()
-      }).onConflictDoUpdate({
-        target: spaces.id,
-        set: {
-          ...space,
-          syncedAt: new Date().toISOString()
-        }
-      });
+      }));
+      await db.insert(spaces).values(formattedValues);
     }
     
     return this.getAll();

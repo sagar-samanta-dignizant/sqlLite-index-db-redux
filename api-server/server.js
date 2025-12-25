@@ -1,7 +1,7 @@
-const express = require('express');
-const cors = require('cors');
-const users = require('./data/users');
-const spaces = require('./data/spaces');
+import express from 'express';
+import cors from 'cors';
+import users from './data/users.js';
+import spaces from './data/spaces.js';
 
 const app = express();
 const PORT = 3000;

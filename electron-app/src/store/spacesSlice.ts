@@ -3,18 +3,7 @@ import { storageAPI } from '../storage';
 
 const API_URL = 'http://localhost:3000/api/spaces';
 
-export interface Space {
-  id: number;
-  name: string;
-  description?: string;
-  type: string;
-  icon?: string;
-  color?: string;
-  memberCount?: number;
-  isPrivate?: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-}
+import { Space } from '../types/models';
 
 export interface SpacesState {
   items: Space[];

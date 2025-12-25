@@ -40,17 +40,39 @@ function runMigrations() {
         updated_at TEXT DEFAULT CURRENT_TIMESTAMP
       );
 
+      DROP TABLE IF EXISTS spaces;
+
       CREATE TABLE IF NOT EXISTS spaces (
         id INTEGER PRIMARY KEY,
-        name TEXT NOT NULL,
-        description TEXT,
+        created_at TEXT NOT NULL,
+        updated_at TEXT NOT NULL,
+        deleted INTEGER DEFAULT 0,
+        deleted_at TEXT,
+        deleted_by TEXT,
+        perma_delete_at TEXT,
+        length INTEGER DEFAULT 0,
+        owner_id INTEGER NOT NULL,
         type TEXT NOT NULL,
-        icon TEXT,
-        color TEXT,
-        member_count INTEGER DEFAULT 0,
-        is_private INTEGER DEFAULT 0,
-        created_at TEXT,
-        updated_at TEXT,
+        profile_type TEXT NOT NULL,
+        name TEXT NOT NULL,
+        no_logo_colour TEXT,
+        logo_url TEXT,
+        banner_url TEXT,
+        description TEXT,
+        terms INTEGER DEFAULT 0,
+        terms_text TEXT,
+        created_by INTEGER,
+        unreadCount INTEGER DEFAULT 0,
+        isMention INTEGER DEFAULT 0,
+        isInvited INTEGER DEFAULT 0,
+        
+        _count TEXT,
+        activeCalls TEXT,
+        spaceRoles TEXT,
+        flows TEXT,
+        categories TEXT,
+        spaceMembers TEXT,
+
         synced_at TEXT DEFAULT CURRENT_TIMESTAMP
       );
     `);
