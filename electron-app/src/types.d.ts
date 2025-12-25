@@ -7,6 +7,8 @@ export interface ElectronAPI {
   clearSpaces: () => Promise<void>;
 }
 
+declare global {
   interface Window {
     electronAPI: ElectronAPI;
   }
+}
