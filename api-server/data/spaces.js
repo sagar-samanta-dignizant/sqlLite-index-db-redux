@@ -62,9 +62,64 @@ const generateSpaces = (count = 50) => {
             isVisible: true
         }));
 
-        // Generate flows/categories (simplified)
-        const flows = [];
+        // Generate flows/categories
         const categories = [];
+
+        // Generate 5-10 flows per space
+        const flows = Array.from({ length: getRandomInt(5, 10) }, (_, f) => {
+            const flowId = parseInt(`${spaceId}${f}`);
+
+            // Generate members for this flow
+            const flowMembers = Array.from({ length: getRandomInt(2, 5) }, (_, fm) => ({
+                id: parseInt(`${flowId}${fm}`),
+                flow_id: flowId,
+                member_id: getRandomInt(1, 100),
+                pinned: Math.random() > 0.8,
+                show: true,
+                muted: false,
+                app_notification: true,
+                desktop_notification: true,
+                email_notification: false,
+                active: true,
+                unread_messages: getRandomInt(0, 10),
+                created_at: getRandomDate(),
+                updated_at: getRandomDate(),
+                key: `flow_${flowId}_member_${fm}`,
+                isVisible: true,
+                callStatus: null,
+                space_member: null, // Simplified
+                user: { id: getRandomInt(1, 100), name: "User" } // Simplified user
+            }));
+
+            return {
+                id: flowId,
+                space_id: spaceId,
+                flow_category_id: null,
+                nodeType: 'flow',
+                name: `Flow ${f + 1}`,
+                type: getRandomElement(['chat', 'voice', 'task']),
+                icon: '💬',
+                // Critical: Nested flow_member array
+                flow_member: flowMembers,
+
+                branch: [],
+                key: `flow_${flowId}`,
+                isVisible: true,
+                decription: "Mock flow description",
+                created_by: "system",
+                created_at: getRandomDate(),
+                updated_at: getRandomDate(7), // Patch: Add missing updated_at
+                deleted: false,
+                archived: false,
+                showInFlowtree: "true",
+                custom_field_value: [],
+                stash_folder: [],
+                unread_mentions: [],
+                collection: [],
+                root_matrix_collection_id: 0,
+                root_stash_folder_id: 0
+            };
+        });
 
         return {
             id: spaceId,

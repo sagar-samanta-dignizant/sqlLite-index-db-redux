@@ -33,9 +33,8 @@ export const spaces = sqliteTable('spaces', {
   _count: text('_count', { mode: 'json' }),
   activeCalls: text('activeCalls', { mode: 'json' }),
   spaceRoles: text('spaceRoles', { mode: 'json' }),
-  flows: text('flows', { mode: 'json' }),
   categories: text('categories', { mode: 'json' }),
-  spaceMembers: text('spaceMembers', { mode: 'json' }),
+
 
   synced_at: text('synced_at').default('CURRENT_TIMESTAMP')
 });

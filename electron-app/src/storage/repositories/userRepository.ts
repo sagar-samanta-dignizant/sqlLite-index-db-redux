@@ -1,7 +1,7 @@
 import { createPlatformRepository } from '../utils';
-import { getFromIndexedDB, saveToIndexedDB, clearIndexedDB } from '../drivers/indexeddb';
+import { db } from '../db';
 
-const USERS_STORE = 'users';
+
 
 interface UserRepository {
   getAll(): Promise<any>;
@@ -23,13 +23,17 @@ const electronUserRepository: UserRepository = {
 
 const webUserRepository: UserRepository = {
   async getAll() {
-    return await getFromIndexedDB(USERS_STORE);
+    return await db.users.toArray();
   },
   async save(users: any[]) {
-    return await saveToIndexedDB(USERS_STORE, users);
+    await db.transaction('rw', db.users, async () => {
+        await db.users.clear();
+        await db.users.bulkPut(users);
+    });
+    return this.getAll();
   },
   async clear() {
-    await clearIndexedDB(USERS_STORE);
+    await db.users.clear();
   }
 };
 
